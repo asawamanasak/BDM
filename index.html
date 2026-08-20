@@ -12,8 +12,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #f4f6f9;
-            color: #333;
+            background-color: #ffffff;
+            color: #111111;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -22,74 +22,89 @@
             padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 480px;
             width: 100%;
-            background: white;
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             text-align: center;
         }
         h1 {
-            font-size: 24px;
-            color: #1e293b;
-            margin-bottom: 10px;
+            font-size: 22px;
+            font-weight: 600;
+            color: #000000;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
         }
         p {
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 30px;
+            font-size: 13px;
+            color: #777777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+        }
+        .divider {
+            width: 40px;
+            height: 1px;
+            background-color: #111111;
+            margin: 0 auto 40px auto;
         }
         .button-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 14px;
         }
         .btn {
             display: block;
             padding: 16px 20px;
-            background-color: #2563eb;
-            color: white;
+            background-color: #ffffff;
+            color: #111111;
             text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            border: 1px solid #111111;
+            border-radius: 2px;
             transition: all 0.2s ease-in-out;
-            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+            letter-spacing: 0.3px;
         }
         .btn:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+            background-color: #111111;
+            color: #ffffff;
         }
+        /* ปุ่มที่สองใช้พื้นดำตั้งแต่แรก เพื่อคุมโทนแบบ minimal (ไม่ใช้สี) */
         .btn-secondary {
-            background-color: #0f172a;
-            box-shadow: 0 2px 4px rgba(15, 23, 42, 0.2);
+            background-color: #111111;
+            color: #ffffff;
+            border: 1px solid #111111;
         }
         .btn-secondary:hover {
-            background-color: #1e293b;
-            box-shadow: 0 4px 8px rgba(15, 23, 42, 0.3);
+            background-color: #ffffff;
+            color: #111111;
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 11px;
+            color: #aaaaaa;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>Presentation</h1>
-        <p>internal used</p>
-        
+        <p>Internal Use</p>
+        <div class="divider"></div>
+
         <div class="button-list">
             <!-- ปุ่มกดไปยังสไลด์ตัวที่ 1 -->
             <a href="HPE%20Organization%20Chart%20Desktop.html" class="btn">
                 HPE Organization Chart
             </a>
-            
+
             <!-- ปุ่มกดไปยังสไลด์ตัวที่ 2 -->
             <a href="Ingram%20GTM.html" class="btn btn-secondary">
                 Ingram GTM
             </a>
         </div>
-    </div>
 
+        <footer>© Internal Portfolio</footer>
+    </div>
 </body>
 </html>
