@@ -68,7 +68,6 @@
             background-color: #111111;
             color: #ffffff;
         }
-        /* ปุ่มที่สองใช้พื้นดำตั้งแต่แรก เพื่อคุมโทนแบบ minimal (ไม่ใช้สี) */
         .btn-secondary {
             background-color: #111111;
             color: #ffffff;
@@ -84,40 +83,144 @@
             color: #aaaaaa;
             letter-spacing: 0.5px;
         }
+
+        /* ---------- Password Overlay ---------- */
+        #lockOverlay {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .lock-box {
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+        .lock-box h2 {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .lock-box .sub {
+            font-size: 12px;
+            color: #777777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+        #pwInput {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            border: 1px solid #111111;
+            border-radius: 2px;
+            outline: none;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+        #pwInput:focus {
+            border-width: 2px;
+        }
+        #pwSubmit {
+            width: 100%;
+            padding: 12px 14px;
+            background-color: #111111;
+            color: #ffffff;
+            border: 1px solid #111111;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        #pwSubmit:hover {
+            background-color: #ffffff;
+            color: #111111;
+        }
+        #pwError {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #c0392b;
+            letter-spacing: 0.3px;
+            min-height: 16px;
+        }
+
+        /* ซ่อนเนื้อหาจริงไว้ก่อนจนกว่าจะใส่รหัสถูก */
+        #mainContent {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ระบบล็อกอินตรวจสอบรหัสผ่านก่อนแสดงหน้าเว็บ -->
-    <script>
-        // คุณสามารถเปลี่ยนรหัสผ่านที่ต้องการในเครื่องหมายคำพูดด้านล่างนี้ได้เลยครับ (ปัจจุบันคือ bdm1234)
-        var securePassword = "Fdit8nvF'jF,Fs8nv[hk"; 
-        var userGuess = prompt("Password Needed (Internal Use Only):");
+    <!-- ===== หน้าจอกรอกรหัสผ่าน ===== -->
+    <div id="lockOverlay">
+        <div class="lock-box">
+            <h2>Restricted Access</h2>
+            <div class="sub">Internal Use Only</div>
+            <input type="password" id="pwInput" placeholder="Enter password" autocomplete="off">
+            <button id="pwSubmit">Enter</button>
+            <div id="pwError"></div>
+        </div>
+    </div>
 
-        while (userGuess !== securePassword) {
-            alert("Wrong!!");
-            userGuess = prompt("Password Needed (Internal Use Only):");
-        }
-    </script>
-
-    <div class="container">
+    <!-- ===== เนื้อหาจริงของหน้าเว็บ ===== -->
+    <div class="container" id="mainContent">
         <h1>Presentation</h1>
         <p>Internal Use</p>
         <div class="divider"></div>
-
         <div class="button-list">
             <!-- ปุ่มกดไปยังสไลด์ตัวที่ 1 -->
             <a href="HPE%20Organization%20Chart%20Desktop.html" class="btn">
                 HPE Organization Chart
             </a>
-
             <!-- ปุ่มกดไปยังสไลด์ตัวที่ 2 -->
             <a href="Ingram%20GTM.html" class="btn btn-secondary">
                 Ingram GTM
             </a>
         </div>
-
         <footer>© Internal Portfolio</footer>
     </div>
+
+    <script>
+        // เปลี่ยนรหัสผ่านที่ต้องการได้ตรงนี้
+        var securePassword = "bdm1234";
+
+        var overlay = document.getElementById("lockOverlay");
+        var mainContent = document.getElementById("mainContent");
+        var pwInput = document.getElementById("pwInput");
+        var pwSubmit = document.getElementById("pwSubmit");
+        var pwError = document.getElementById("pwError");
+
+        function checkPassword() {
+            if (pwInput.value === securePassword) {
+                overlay.style.display = "none";
+                mainContent.style.display = "block";
+            } else {
+                pwError.textContent = "รหัสผ่านไม่ถูกต้อง";
+                pwInput.value = "";
+                pwInput.focus();
+            }
+        }
+
+        pwSubmit.addEventListener("click", checkPassword);
+        pwInput.addEventListener("keyup", function (e) {
+            if (e.key === "Enter") {
+                checkPassword();
+            }
+        });
+
+        // โฟกัสช่องกรอกรหัสทันทีที่โหลดหน้า
+        window.onload = function () {
+            pwInput.focus();
+        };
+    </script>
 </body>
 </html>
