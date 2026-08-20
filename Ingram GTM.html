@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategic Go-To-Market Plan: HPE Networking by Ingram Micro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1E27;
+    --ink-2:#142B36;
+    --ink-3:#1B3742;
+    --paper:#F1EFE8;
+    --muted:#9FB3BC;
+    --green:#00B388;
+    --green-dim:rgba(0,179,136,0.16);
+    --amber:#E0A458;
+    --amber-dim:rgba(224,164,88,0.16);
+    --blue:#5B9BFF;
+    --hair:rgba(241,239,232,0.12);
+    --hair-strong:rgba(241,239,232,0.22);
+    --display:'Space Grotesk','Noto Sans Thai',sans-serif;
+    --body:'Inter','Noto Sans Thai',sans-serif;
+    --mono:'IBM Plex Mono','Noto Sans Thai',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#05090C;height:100%;overflow:hidden;}
+  body{font-family:var(--body);color:var(--paper);}
+  ::selection{background:var(--green);color:#05090C;}
+
+  /* ---- Stage: fixed 1280x720 design, scaled to always fit viewport with no scrolling ---- */
+  /* bottom space reserved so the floating toolbar never overlaps the slide */
+  #stage-outer{
+    position:fixed; top:0; left:0; right:0;
+    height:calc(100vh - 84px);
+    display:flex; align-items:center; justify-content:center;
+    width:100vw;
+  }
+  #stage{
+    position:relative;
+    width:1280px; height:720px;
+    flex:none;
+    transform-origin:center center;
+    background:var(--ink);
+    box-shadow:0 0 80px rgba(0,0,0,.5);
+  }
+
+  .page{
+    position:absolute; inset:0;
+    display:none;
+    overflow:hidden;
+  }
+  .page.active{display:flex;}
+
+  /* ---- Phase rail: signature element, encodes the outline's own 4-part structure ---- */
+  .rail{
+    width:64px;
+    flex:none;
+    background:var(--ink-2);
+    border-right:1px solid var(--hair);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:28px;
+    padding:24px 0;
+    position:relative;
+  }
+  .rail::before{
+    content:"";
+    position:absolute;
+    left:50%; top:56px; bottom:56px;
+    width:1px;
+    background:var(--hair-strong);
+    transform:translateX(-50%);
+  }
+  .rail-seg{
+    width:34px; height:34px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    background:var(--ink);
+    border:1px solid var(--hair-strong);
+    position:relative;
+    z-index:1;
+  }
+  .rail-seg.active{
+    color:#05090C;
+    background:var(--green);
+    border-color:var(--green);
+    box-shadow:0 0 0 4px var(--green-dim);
+  }
+  .rail-label{
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:.08em;
+    color:var(--muted);
+    writing-mode:vertical-rl;
+    position:absolute;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+  }
+
+  .content{
+    flex:1;
+    padding:48px 64px 76px;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+    min-height:0;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+    flex:none;
+  }
+  .eyebrow .dash{width:22px; height:1px; background:var(--green); display:inline-block;}
+
+  h1.title{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:38px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--paper);
+    letter-spacing:-0.01em;
+    flex:none;
+  }
+  .subtitle{
+    font-size:14.5px;
+    color:var(--muted);
+    margin:0 0 20px;
+    max-width:820px;
+    line-height:1.55;
+    flex:none;
+  }
+
+  .body-area{flex:1; min-height:0; display:flex; flex-direction:column; gap:16px;}
+
+  .stage-footer{
+    position:absolute;
+    bottom:20px; left:64px; right:64px;
+    height:18px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:var(--muted);
+    letter-spacing:.04em;
+  }
+  .stage-footer .brand{color:var(--paper); opacity:.55;}
+  .stage-footer .confidential{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    color:var(--amber);
+    opacity:.85;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-size:9.5px;
+    white-space:nowrap;
+    border:1px solid rgba(224,164,88,.35);
+    background:var(--amber-dim);
+    padding:2px 9px;
+    border-radius:20px;
+    z-index:5;
+  }
+
+  .card{
+    background:var(--ink-2);
+    border:1px solid var(--hair);
+    border-radius:10px;
+    padding:18px 20px;
+  }
+  .card h3{
+    font-family:var(--display);
+    font-size:14.5px;
+    margin:0 0 7px;
+    color:var(--paper);
+    display:flex; align-items:center; gap:8px;
+  }
+  .card p, .card li{font-size:13px; line-height:1.5; color:#D8D5CC; margin:0;}
+  .tag{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:2px 8px;
+    border-radius:20px;
+    display:inline-block;
+  }
+  .tag.green{background:var(--green-dim); color:var(--green);}
+  .tag.amber{background:var(--amber-dim); color:var(--amber);}
+  .tag.blue{background:rgba(91,155,255,0.16); color:var(--blue);}
+
+  ul.clean{margin:8px 0 0; padding-left:16px;}
+  ul.clean li{margin-bottom:5px;}
+  ul.clean li::marker{color:var(--green);}
+
+  /* === Slide 0: Index === */
+  .idx-list{flex:1; display:grid; grid-template-columns:1fr 1fr; gap:12px; align-content:start;}
+  .idx-item{
+    display:flex; align-items:center; gap:14px;
+    background:var(--ink-2); border:1px solid var(--hair); border-radius:10px;
+    padding:14px 16px; text-decoration:none; cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .idx-item:hover{border-color:var(--green); background:var(--ink-3);}
+  .idx-num{font-family:var(--mono); font-size:18px; color:var(--green); width:30px; flex:none;}
+  .idx-item h4{margin:0 0 2px; font-family:var(--display); font-size:14px; color:var(--paper);}
+  .idx-item span{font-size:11.5px; color:var(--muted);}
+
+  /* === Title slide === */
+  .s1 .content{justify-content:center;}
+  .s1 h1.title{font-size:42px; max-width:760px;}
+  .mission-box{margin-top:20px; border-left:2px solid var(--green); padding-left:18px; flex:none;}
+  .mission-box .k{font-family:var(--mono); font-size:11px; color:var(--green); letter-spacing:.08em; text-transform:uppercase;}
+  .mission-box p{font-size:14px; color:#D8D5CC; line-height:1.6; margin-top:6px; max-width:760px;}
+  .strategy-row{display:flex; gap:14px; margin-top:20px; flex:none;}
+  .strategy-row .card{flex:1;}
+  .strategy-row .num{font-family:var(--mono); color:var(--green); font-size:19px; font-weight:600; margin-bottom:7px; display:block;}
+  .target-outcome{
+    margin-top:18px; flex:none;
+    background:linear-gradient(90deg, var(--green-dim), transparent);
+    border:1px solid var(--hair-strong);
+    border-radius:10px;
+    padding:13px 18px;
+    font-size:13px;
+    color:var(--paper);
+  }
+
+  /* === Competitive landscape === */
+  .quad{display:grid; grid-template-columns:1fr 1fr; gap:14px; flex:1; min-height:0;}
+  .quad .card{display:flex; flex-direction:column; gap:6px;}
+  .quad .who{font-family:var(--display); font-weight:700; font-size:18px;}
+  .target-panel{display:flex; gap:14px; margin-top:14px; flex:none;}
+  .target-panel .card{flex:1;}
+
+  /* === SWOT === */
+  .swot{display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:12px; flex:1; min-height:0;}
+  .swot .card{overflow:auto;}
+  .swot .card.strength{border-color:rgba(0,179,136,.35);}
+  .swot .card.weakness{border-color:rgba(224,164,88,.35);}
+  .swot .card.opportunity{border-color:rgba(91,155,255,.35);}
+  .swot .card.threat{border-color:rgba(224,120,88,.4);}
+
+  /* === Matrix === */
+  .matrix{
+    flex:1; min-height:0;
+    display:grid;
+    grid-template-columns:140px 1fr 1fr;
+    grid-template-rows:auto 1fr 1fr;
+    gap:1px;
+    background:var(--hair);
+    border:1px solid var(--hair-strong);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .matrix > div{background:var(--ink-2); padding:12px 14px;}
+  .matrix .mh{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--ink-3); display:flex; align-items:center;}
+  .matrix .mh.now{color:var(--green);}
+  .matrix .mh.next{color:var(--amber);}
+  .matrix .row-label{background:var(--ink-3); font-family:var(--display); font-weight:600; font-size:12.5px; display:flex; align-items:center; color:var(--paper);}
+  .matrix .cell{font-size:11.8px; line-height:1.45; color:#D8D5CC; overflow:auto;}
+  .matrix .cell ul{margin:0; padding-left:14px;}
+  .matrix .cell li{margin-bottom:4px;}
+  .matrix .cell li::marker{color:var(--muted);}
+
+  /* === Alignment === */
+  .direction-check{display:flex; gap:14px; margin-bottom:14px; flex:none;}
+  .direction-check .card{flex:1; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;}
+  .direction-check .or{font-family:var(--mono); color:var(--muted); font-size:12px; align-self:center; display:flex; align-items:center;}
+  .rules{display:flex; flex-direction:column; gap:9px; flex:1; min-height:0;}
+  .rule-row{display:flex; align-items:flex-start; gap:12px; background:var(--ink-2); border:1px solid var(--hair); border-radius:8px; padding:11px 16px;}
+  .rule-icon{width:22px; height:22px; border-radius:50%; flex:none; background:var(--green-dim); color:var(--green); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; margin-top:1px;}
+
+  /* === Roadmap === */
+  .timeline{position:relative; flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;}
+  .timeline::before{content:""; position:absolute; top:26px; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--green), var(--amber), var(--blue)); z-index:0;}
+  .tl-phase{position:relative; z-index:1;}
+  .tl-dot{width:14px; height:14px; border-radius:50%; background:var(--ink); border:2px solid var(--green); margin-bottom:22px;}
+  .tl-phase:nth-child(2) .tl-dot{border-color:var(--amber);}
+  .tl-phase:nth-child(3) .tl-dot{border-color:var(--blue);}
+  .tl-range{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.05em; display:block; margin-bottom:6px;}
+  .tl-phase h3{font-family:var(--display); font-size:15px; margin:4px 0 12px; color:var(--paper);}
+  .tl-phase .card{background:var(--ink-2);}
+
+  /* === Asks === */
+  .asks{display:flex; flex-direction:column; gap:11px; flex:1; min-height:0; justify-content:center;}
+  .ask-row{display:flex; align-items:center; gap:16px; border:1px solid var(--hair-strong); background:var(--ink-2); border-radius:10px; padding:14px 20px;}
+  .ask-num{font-family:var(--mono); font-size:19px; color:var(--green); font-weight:600; width:32px; flex:none;}
+  .ask-row h4{margin:0 0 3px; font-family:var(--display); font-size:14.5px; color:var(--paper);}
+  .ask-row p{margin:0; font-size:12.5px; color:var(--muted); line-height:1.45;}
+  .ask-check{margin-left:auto; flex:none; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--amber); background:var(--amber-dim); padding:4px 10px; border-radius:20px; cursor:pointer; user-select:none; transition:all .15s;}
+  .ask-check.approved{color:var(--green); background:var(--green-dim);}
+
+  /* editable blank bullets — click and type during the meeting */
+  li.editable-blank{outline:none; min-height:1em; border-bottom:1px dashed transparent;}
+  li.editable-blank:hover{border-bottom-color:var(--hair-strong);}
+  li.editable-blank:focus{border-bottom-color:var(--green);}
+  li.editable-blank:empty::before{content:"+ เพิ่มเติม…"; color:var(--muted); opacity:.55; font-style:italic;}
+  li.editable-blank::marker{color:var(--muted);}
+
+  /* ---- Floating toolbar (fixed, not scaled) — compact pill, uniform icon-only buttons ---- */
+  #navbar{
+    position:fixed; left:50%; bottom:16px;
+    transform:translateX(-50%);
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    background:rgba(20,43,54,.9);
+    border:1px solid var(--hair-strong);
+    border-radius:16px;
+    padding:8px;
+    box-shadow:0 8px 28px rgba(0,0,0,.4);
+    z-index:100;
+    font-family:var(--body);
+  }
+  #navbar a{
+    display:flex; align-items:center; justify-content:center;
+    width:40px; height:40px;
+    border-radius:10px;
+    border:1px solid var(--hair-strong);
+    background:var(--ink-2);
+    color:var(--paper);
+    opacity:.6;
+    transition:opacity .15s, transform .15s;
+  }
+  #navbar a svg{width:18px; height:18px; display:block;}
+  #navbar a:hover{opacity:1;}
+  #navbar a:active{transform:scale(.94);}
+  #navbar a.disabled{opacity:.2; pointer-events:none;}
+  #navbar a.saved{opacity:1; color:var(--green); border-color:rgba(0,179,136,.4);}
+  #navbar .pageindicator{
+    font-family:var(--mono); font-size:11px; color:var(--muted); opacity:.6;
+    min-width:44px; text-align:center;
+  }
+
+  /* ---- Index overlay ---- */
+  #indexOverlay{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(5,9,12,.88);
+    display:none;
+    align-items:center; justify-content:center;
+    padding:40px;
+  }
+  #indexOverlay.open{display:flex;}
+  .overlay-panel{
+    width:min(720px,90vw);
+    background:var(--ink-2);
+    border:1px solid var(--hair-strong);
+    border-radius:16px;
+    padding:26px 28px;
+    max-height:80vh;
+    overflow:auto;
+  }
+  .overlay-panel h2{font-family:var(--display); font-size:20px; margin:0 0 4px; color:var(--paper);}
+  .overlay-panel .sub{font-size:12.5px; color:var(--muted); margin:0 0 18px;}
+  .overlay-close{position:absolute; top:20px; right:26px; color:var(--muted); background:none; border:none; font-size:22px; cursor:pointer;}
+
+  /* ---- Persistent brand logo (top-right, all slides, links out) ---- */
+  #brandLogo{
+    position:absolute;
+    top:18px; right:22px;
+    z-index:80;
+    display:flex; align-items:center;
+    height:34px;
+    opacity:.95;
+    transition:opacity .15s, transform .15s;
+  }
+  #brandLogo:hover{opacity:1; transform:translateY(-1px);}
+  #brandLogo img{height:100%; width:auto; display:block;}
+</style>
+</head>
+<body>
+
+<div id="stage-outer"><div id="stage">
+
+  <!-- INDEX (accessible via Index link, not part of Prev/Next flow) -->
+  <section class="page" id="page-0" data-title="Index — สารบัญ">
+    <div class="rail"><span class="rail-label">INDEX</span>
+      <div class="rail-seg">1</div><div class="rail-seg">2</div><div class="rail-seg">3</div><div class="rail-seg">4</div>
+    </div>
+    <div class="content">
+      <div class="eyebrow"><span class="dash"></span>สารบัญ — Jump to any slide</div>
+      <h1 class="title">Table of Contents</h1>
+      <div class="idx-list" id="idxList"></div>
+    </div>
+    <div class="stage-footer"><span class="confidential">Internal — Confidential</span><span>Index</span></div>
+  </section>
+
+  <!-- SLIDE 1 -->
+  <section class="page s1" id="page-1" data-phase="1" data-title="Executive Summary & Strategic Intent">
+    <div class="rail"><span class="rail-label">4 PHASES</span>
+      <div class="rail-seg active">1</div><div class="rail-seg">2</div><div class="rail-seg">3</div><div class="rail-seg">4</div>
+    </div>
+    <div class="content">
+      <div class="eyebrow"><span class="dash"></span>Vision &amp; Market Reality</div>
+      <h1 class="title">Strategic Go-To-Market Plan:<br>HPE Networking by Ingram Micro</h1>
+      <div class="mission-box">
+        <div class="k">Mission</div>
+        <p>ยกระดับ Ingram Micro สู่การเป็น Value-Added Partner หลักของ HPE Networking<br>เป้าหมายระยะสั้นคือรักษายอดขายเดิมของ Outgoing&nbsp;Distributor และได้ยอดขายตามเป้าที่ Vendor วางไว้<br>หากทำยอดเทียบเท่า VST&nbsp;ECS &amp; SiS ถือว่าเป็น Upside Bonus</p>
+      </div>
+      <div class="strategy-row">
+        <div class="card"><span class="num">01</span><h3>ดึงฐานลูกค้าเดิม</h3><p>เจาะฐานลูกค้าเดิมของ Outgoing Distributor ให้เร็วที่สุด</p></div>
+        <div class="card"><span class="num">02</span><h3>ขยายจาก Resellers Ingram เดิม</h3><p>เจาะกลุ่มที่ไม่ได้ขาย Enterprise Solution (Gartner Leader) และลูกค้าที่ใช้ Storage/Data HPE อยู่แล้ว โดยยังไม่แย่ง Resellers ที่เหนียวแน่นกับ Cisco</p></div>
+        <div class="card"><span class="num">03</span><h3>ใช้จุดแข็ง BDM</h3><p>ใช้ Enterprise Experience ของ BDM เปิดตลาด สร้าง Pipeline Project Base</p></div>
+      </div>
+      <div class="target-outcome"><strong>Target Outcome:</strong>&nbsp; สร้าง Revenue &amp; Market Share เติบโตอย่างยั่งยืน โดยไม่ทำให้ชื่อเสียงทีมงาน Ingram เสียหายในช่วง Setup Phase</div>
+    </div>
+    <div class="stage-footer"><span class="confidential">Internal — Confidential</span><span>01 / 07</span></div>
+  </section>
+
+  <!-- SLIDE 2 -->
+  <section class="page" id="page-2" data-phase="1" data-title="Competitive Landscape & Immediate Opportunities">
+    <div class="rail"><span class="rail-label">4 PHASES</span>
+      <div class="rail-seg active">1</div><div class="rail-seg">2</div><div class="rail-seg">3</div><div class="rail-seg">4</div>
+    </div>
+    <div class="content">
+      <div class="eyebrow"><span class="dash"></span>Vision &amp; Market Reality</div>
+      <h1 class="title">Market Analysis: The 4-Distributor Landscape</h1>
+      <p class="subtitle">โครงสร้างตลาด Distributor สำหรับ HPE Networking ในปัจจุบัน และช่องว่างที่ Ingram Micro จะเข้าไปทำตลาด</p>
+      <div class="quad">
+        <div class="card">
+          <span class="tag blue">The Big 2 · Incumbents</span>
+          <div class="who">VST ECS &amp; SiS</div>
+          <p>แข็งแกร่งเรื่อง Credit terms, Low margin, Support Team, Spare Parts, สาขาต่างจังหวัด</p>
+        </div>
+        <div class="card">
+          <span class="tag amber">The Specialist</span>
+          <div class="who">Digitech One</div>
+          <p>ถือครองตลาด Juniper Solution — เป็นเจ้าเดียวที่ซัพพอร์ต Juniper ได้เต็มรูปแบบ</p>
+        </div>
+        <div class="card" style="grid-column:1/-1;">
+          <span class="tag green">The Game Changer</span>
+          <div class="who">Ingram Micro</div>
+          <p>เข้ามาแทน Outgoing Distributor — Revenue &amp; Standard ต้องมากกว่าหรือเท่ากับที่ Distributor เดิมเคยทำได้</p>
+        </div>
+      </div>
+      <div class="target-panel">
+        <div class="card"><h3>🎯 Top 20 Resellers เดิมของ Outgoing Distributor</h3><p>เป้าหมายแรกในการดึง POS/Run-rate กลับมา</p></div>
+        <div class="card"><h3>🎯 Existing Partners ของ Ingram</h3><p>เน้นไปที่กลุ่มที่ยังไม่ได้ขาย Enterprise Networking และเป็นลูกค้า Storage/Data HPE อยู่แล้ว</p></div>
+      </div>
+    </div>
+    <div class="stage-footer"><span class="confidential">Internal — Confidential</span><span>02 / 07</span></div>
+  </section>
+
+  <!-- SLIDE 3 -->
+  <section class="page" id="page-3" data-phase="2" data-title="Realistic SWOT Analysis">
+    <div class="rail"><span class="rail-label">4 PHASES</span>
+      <div class="rail-seg">1</div><div class="rail-seg active">2</div><div class="rail-seg">3</div><div class="rail-seg">4</div>
+    </div>
+    <div class="content">
+      <div class="eyebrow"><span class="dash"></span>Assessment &amp; Criteria Prioritization</div>
+      <h1 class="title">Operational Readiness Assessment</h1>
+      <p class="subtitle">Realistic SWOT — จุดยืนของเราในวันนี้</p>
+      <div class="swot">
+        <div class="card strength"><h3><span class="tag green">S</span>&nbsp;Strengths</h3><ul class="clean"><li>BDM Experience (Insider/Connections)</li><li>Ingram Global Financial Power</li><li class="editable-blank" contenteditable="true"></li></ul></div>
+        <div class="card weakness"><h3><span class="tag amber">W</span>&nbsp;Weaknesses <span style="font-size:11px;color:var(--muted);font-family:var(--mono);">(3–6 mo. bottleneck)</span></h3><ul class="clean"><li>ทีม Presales/Postsales กำลัง set up</li><li>ยังไม่มี Stock/Demo Units</li><li>Commercial Support to SI</li><li>Commercial Support to Vendor</li><li class="editable-blank" contenteditable="true"></li></ul></div>
+        <div class="card opportunity"><h3><span class="tag blue">O</span>&nbsp;Opportunities</h3><ul class="clean"><li>Cover Reseller เดิมจาก Outgoing Distributor</li><li>หา Pipeline จาก HPE Territory Managers เข้าไป Cover Project แทนได้ อาจจะเริ่มจาก Deal size ไม่เกิน 100k</li><li class="editable-blank" contenteditable="true"></li></ul></div>
+        <div class="card threat"><h3><span class="tag" style="background:rgba(224,120,88,.16);color:#E07858;">T</span>&nbsp;Threats</h3><ul class="clean"><li>ความเสี่ยง Delivery Failure หากรับงานยากเกินไปในไตรมาสแรก</li><li class="editable-blank" contenteditable="true"></li></ul></div>
+      </div>
+    </div>
+    <div class="stage-footer"><span class="confidential">Internal — Confidential</span><span>03 / 07</span></div>
+  </section>
+
+  <!-- SLIDE 4 -->
+  <section class="page" id="page-4" data-phase="2" data-title="Internal Criteria & Readiness Matrix">
+    <div class="rail"><span class="rail-label">4 PHASES</span>
+      <div class="rail-seg">1</div><div class="rail-seg active">2</div><div class="rail-seg">3</div><div class="rail-seg">4</div>
+    </div>
+    <div class="content">
+      <div class="eyebrow"><span class="dash"></span>Assessment &amp; Criteria Prioritization</div>
+      <h1 class="title">Readiness &amp; Prioritization Matrix</h1>
+      <div class="matrix">
+        <div class="mh"></div>
+        <div class="mh now">Must-Have — ก่อนเริ่มรับดีลใหญ่</div>
+        <div class="mh next">Phase 2–3 — รอทำได้</div>
+
+        <div class="row-label">ก่อนเริ่มรับ<br>ดีลใหญ่</div>
+        <div class="cell"><ul><li><strong>Minimum Margin Policy</strong> — 4–6% (Project base / Volume)</li><li><strong>Commercial Support</strong></li><li><strong>Credit Term Standard</strong> — 60–90 วัน ดีล USD100k+</li><li class="editable-blank" contenteditable="true"></li></ul></div>
+        <div class="cell"><ul><li>In-house Support Team (Presales+Postsales)</li><li>Complete Demo Pool</li><li class="editable-blank" contenteditable="true"></li></ul></div>
+
+        <div class="row-label">หลังตั้งทีม<br>ลงตัว (3–6 mo.)</div>
+        <div class="cell"><ul><li>POS List Migration</li><li>Co-work with HPE TMs</li><li class="editable-blank" contenteditable="true"></li></ul></div>
+        <div class="cell"><ul><li>Full Proposal &amp; BOQ Creation</li><li>Targeted Regional Enablement — อาจจะยังไม่ Roadshow จนกว่าแผน Local Support พร้อม</li><li class="editable-blank" contenteditable="true"></li></ul></div>
+      </div>
+    </div>
+    <div class="stage-footer"><span class="confidential">Internal — Confidential</span><span>04 / 07</span></div>
+  </section>
+
+  <!-- SLIDE 5 -->
+  <section class="page" id="page-5" data-phase="3" data-title="Aligning Internal Direction (Cisco vs. HPE)">
+    <div class="rail"><span class="rail-label">4 PHASES</span>
+      <div class="rail-seg">1</div><div class="rail-seg">2</div><div class="rail-seg active">3</div><div class="rail-seg">4</div>
+    </div>
+    <div class="content">
+      <div class="eyebrow"><span class="dash"></span>Internal Alignment &amp; Rules of Engagement</div>
+      <h1 class="title">Internal Synergy &amp; Directorial Direction</h1>
+      <div class="direction-check">
+        <div class="card"><span class="tag blue">Option A</span><h3>Fulfillment</h3><p>ทำตามคำสั่งซื้อ ไม่รุก</p></div>
+        <div class="or">VS</div>
+        <div class="card"><span class="tag green">Option B</span><h3>Aggressive Growth VAD</h3><p>รุกตลาดเชิงรุกเต็มรูปแบบ</p></div>
+      </div>
+      <p class="subtitle" style="margin-bottom:12px;"><strong style="color:var(--paper);">Cisco Co-existence Rule</strong> — กำหนดกติกาชัดเจนไม่ให้ชนกันเองภายใน:</p>
+      <div class="rules">
+        <div class="rule-row"><div class="rule-icon">✓</div><div>Engage Reseller สาย Cisco ได้ — วาง HPE เป็น Second Choice</div></div>
+        <div class="rule-row"><div class="rule-icon">✓</div><div>เน้นเจาะ Reseller ที่ยังไม่เคยขาย Enterprise Networking</div></div>
+        <div class="rule-row"><div class="rule-icon">✓</div><div>เน้น Cross-sell ลูกค้าที่มี Infrastructure Storage/Data ของ HPE อยู่เดิม</div></div>
+      </div>
+    </div>
+    <div class="stage-footer"><span class="confidential">Internal — Confidential</span><span>05 / 07</span></div>
+  </section>
+
+  <!-- SLIDE 6 -->
+  <section class="page" id="page-6" data-phase="4" data-title="30-60-90 Days Strategic Roadmap">
+    <div class="rail"><span class="rail-label">4 PHASES</span>
+      <div class="rail-seg">1</div><div class="rail-seg">2</div><div class="rail-seg">3</div><div class="rail-seg active">4</div>
+    </div>
+    <div class="content">
+      <div class="eyebrow"><span class="dash"></span>Execution Plan &amp; Immediate Actions</div>
+      <h1 class="title">30-60-90 Days Strategic Roadmap</h1>
+      <p class="subtitle">Phased Execution Plan — Risk-Mitigated Growth</p>
+      <div class="timeline">
+        <div class="tl-phase">
+          <div class="tl-dot"></div>
+          <div class="tl-range">DAYS 1–30</div>
+          <h3>Internal Foundations &amp; Alignments</h3>
+          <div class="card"><ul class="clean"><li>เคลียร์นโยบายภายใน</li><li>ขออนุมัติ Policy (Margin / Credit / Commercial Supported)</li><li>หา List ลูกค้า Outgoing Distributor</li></ul></div>
+        </div>
+        <div class="tl-phase">
+          <div class="tl-dot"></div>
+          <div class="tl-range">DAYS 31–60</div>
+          <h3>Partner Migration &amp; Low-Risk Revenue</h3>
+          <div class="card"><ul class="clean"><li>เข้าพบ Top 20 Reseller เดิมของ Outgoing Distributor</li><li>เน้นขาย Run-Rate และดีลที่ Vendor/SI มีทีม Presales ของตัวเองอยู่แล้ว</li></ul></div>
+        </div>
+        <div class="tl-phase">
+          <div class="tl-dot"></div>
+          <div class="tl-range">DAYS 61–90</div>
+          <h3>Team Building &amp; Expansion</h3>
+          <div class="card"><ul class="clean"><li>เริ่มสร้างทีม Presales ภายใน</li><li>วางระบบ Demo Pool</li><li>เริ่มเจาะ SI ปริมณฑล/ต่างจังหวัดผ่านช่องทาง Online</li><li>พัฒนาหน้า Website HPE Networking ของ Ingram Micro</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="stage-footer"><span class="confidential">Internal — Confidential</span><span>06 / 07</span></div>
+  </section>
+
+  <!-- SLIDE 7 -->
+  <section class="page" id="page-7" data-phase="4" data-title="Key Decisions & Immediate Asks">
+    <div class="rail"><span class="rail-label">4 PHASES</span>
+      <div class="rail-seg">1</div><div class="rail-seg">2</div><div class="rail-seg">3</div><div class="rail-seg active">4</div>
+    </div>
+    <div class="content">
+      <div class="eyebrow"><span class="dash"></span>Execution Plan &amp; Immediate Actions</div>
+      <h1 class="title">Action Items Required</h1>
+      <div class="asks">
+        <div class="ask-row">
+          <div class="ask-num">01</div>
+          <div><h4>อนุมัติกรอบ Financial Policy</h4><p>Minimum Margin 4–6% สำหรับแข่งขันดีลใหญ่ + กรอบ Credit 60–90 วัน</p></div>
+          <div class="ask-check" data-default="Needs approval" data-approved="Approved">Needs approval</div>
+        </div>
+        <div class="ask-row">
+          <div class="ask-num">02</div>
+          <div><h4>เห็นชอบ Rules of Engagement</h4><p>แนวทางการทำงานร่วมกันระหว่างทีม HPE Networking และทีม Cisco ภายใน</p></div>
+          <div class="ask-check" data-default="Needs approval" data-approved="Approved">Needs approval</div>
+        </div>
+        <div class="ask-row">
+          <div class="ask-num">03</div>
+          <div><h4>อนุมัติ Budget/Process สำหรับ Commercial Supported</h4><p>เพื่อเพิ่มความคล่องตัวและอำนาจในการต่อรองให้ BDM สามารถขับเคลื่อนโครงการร่วมกับ Vendor/Resellers ได้ทันที</p></div>
+          <div class="ask-check" data-default="Needs approval" data-approved="Approved">Needs approval</div>
+        </div>
+      </div>
+    </div>
+    <div class="stage-footer"><span class="confidential">Internal — Confidential</span><span>07 / 07</span></div>
+  </section>
+
+  <a id="brandLogo" href="https://www.hpe.com/us/en/networking/hpe-aruba-networking.html" target="_blank" rel="noopener">
+    <img src="data:image/png;base64,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" alt="HPE Aruba Networking">
+  </a>
+
+</div></div>
+
+<!-- Bottom navigation -->
+<nav id="navbar">
+  <a href="#" id="prevLink" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </a>
+  <span class="pageindicator" id="pageIndicator">1 / 7</span>
+  <a href="#" id="nextLink" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
+  </a>
+  <a href="#" id="indexLink" aria-label="Index">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="18" x2="14" y2="18"></line></svg>
+  </a>
+  <a href="#" id="saveLink" aria-label="Save file">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+  </a>
+</nav>
+
+<!-- Index overlay -->
+<div id="indexOverlay">
+  <div class="overlay-panel">
+    <button class="overlay-close" id="overlayClose">×</button>
+    <h2>สารบัญ — Table of Contents</h2>
+    <p class="sub">คลิกเพื่อข้ามไปยังสไลด์ที่ต้องการ</p>
+    <div class="idx-list" id="idxListOverlay"></div>
+  </div>
+</div>
+
+<script>
+  const slidePages = Array.from(document.querySelectorAll('.page')); // includes index at [0]
+  const contentSlides = slidePages.filter(p => p.id !== 'page-0'); // 1..7
+  const stage = document.getElementById('stage');
+  const stageOuter = document.getElementById('stage-outer');
+
+  const prevLink = document.getElementById('prevLink');
+  const nextLink = document.getElementById('nextLink');
+  const indexLink = document.getElementById('indexLink');
+  const pageIndicator = document.getElementById('pageIndicator');
+  const indexOverlay = document.getElementById('indexOverlay');
+  const overlayClose = document.getElementById('overlayClose');
+
+  let currentIndex = 1; // 1-based among contentSlides, 0 reserved for "showing index page itself"
+  let showingIndexPage = false;
+
+  function buildIndexList(container){
+    container.innerHTML = '';
+    contentSlides.forEach((p, i) => {
+      const n = i+1;
+      const item = document.createElement('a');
+      item.className = 'idx-item';
+      item.href = '#slide-' + n;
+      item.innerHTML = `<span class="idx-num">${String(n).padStart(2,'0')}</span>
+        <div><h4>${p.dataset.title}</h4><span>Slide ${n} of ${contentSlides.length}</span></div>`;
+      item.addEventListener('click', (e)=>{ e.preventDefault(); goTo(n); closeOverlay(); });
+      container.appendChild(item);
+    });
+  }
+  buildIndexList(document.getElementById('idxList'));
+  buildIndexList(document.getElementById('idxListOverlay'));
+
+  function scaleStage(){
+    const reservedBottom = 84; // space kept clear for the floating toolbar
+    const s = Math.min(window.innerWidth/1280, (window.innerHeight - reservedBottom)/720);
+    stage.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', scaleStage);
+  scaleStage();
+
+  function render(){
+    slidePages.forEach(p => p.classList.remove('active'));
+    if(showingIndexPage){
+      document.getElementById('page-0').classList.add('active');
+    } else {
+      document.getElementById('page-' + currentIndex).classList.add('active');
+    }
+    pageIndicator.textContent = showingIndexPage ? 'Index' : (currentIndex + ' / ' + contentSlides.length);
+    prevLink.classList.toggle('disabled', !showingIndexPage && currentIndex <= 1);
+    nextLink.classList.toggle('disabled', !showingIndexPage && currentIndex >= contentSlides.length);
+    location.hash = showingIndexPage ? 'index' : ('slide-' + currentIndex);
+  }
+
+  function goTo(n){
+    showingIndexPage = false;
+    currentIndex = Math.max(1, Math.min(contentSlides.length, n));
+    render();
+  }
+
+  function openIndexPage(){ showingIndexPage = true; render(); }
+
+  function openOverlay(){ indexOverlay.classList.add('open'); }
+  function closeOverlay(){ indexOverlay.classList.remove('open'); }
+
+  prevLink.addEventListener('click', (e)=>{ e.preventDefault(); if(!showingIndexPage) goTo(currentIndex - 1); });
+  nextLink.addEventListener('click', (e)=>{ e.preventDefault(); if(!showingIndexPage) goTo(currentIndex + 1); });
+  indexLink.addEventListener('click', (e)=>{ e.preventDefault(); openOverlay(); });
+  overlayClose.addEventListener('click', closeOverlay);
+  indexOverlay.addEventListener('click', (e)=>{ if(e.target === indexOverlay) closeOverlay(); });
+
+  // also allow clicking the dedicated Index page's list directly (in-flow, not overlay)
+  document.getElementById('page-0').querySelectorAll('.idx-item').forEach(()=>{}); // built above already wired
+
+  document.addEventListener('keydown', (e)=>{
+    if(indexOverlay.classList.contains('open')){
+      if(e.key === 'Escape') closeOverlay();
+      return;
+    }
+    if(e.key === 'ArrowRight' || e.key === 'PageDown'){ if(!showingIndexPage) goTo(currentIndex+1); e.preventDefault(); }
+    if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ if(!showingIndexPage) goTo(currentIndex-1); e.preventDefault(); }
+    if(e.key === 'Escape' && showingIndexPage){ showingIndexPage = false; render(); }
+  });
+
+  // hash-based deep linking
+  function handleHash(){
+    const h = location.hash.replace('#','');
+    if(h === 'index'){ openIndexPage(); return; }
+    const m = h.match(/^slide-(\d+)$/);
+    if(m){ goTo(parseInt(m[1],10)); return; }
+    goTo(1);
+  }
+  window.addEventListener('hashchange', handleHash);
+  handleHash();
+
+  // Click-to-toggle "Needs approval" -> "Approved" tags on slide 7
+  document.querySelectorAll('.ask-check').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const approved = tag.classList.toggle('approved');
+      tag.textContent = approved ? (tag.dataset.approved || 'Approved') : (tag.dataset.default || 'Needs approval');
+    });
+  });
+
+  // Editable blank bullets: pressing Enter creates a new bullet instead of a line break
+  function wireEditableBlank(li){
+    li.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        const newLi = document.createElement('li');
+        newLi.className = 'editable-blank';
+        newLi.setAttribute('contenteditable', 'true');
+        li.after(newLi);
+        wireEditableBlank(newLi);
+        newLi.focus();
+      }
+    });
+  }
+  document.querySelectorAll('li.editable-blank').forEach(wireEditableBlank);
+
+  // Save / Export: download a new HTML file that freezes in all live edits
+  // (typed bullets, approved tags) so changes made during a live presentation
+  // can be kept. Browsers can't silently overwrite the original file for
+  // security reasons, so this saves a new copy the presenter can keep.
+  const saveLink = document.getElementById('saveLink');
+  saveLink.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Snapshot current DOM state, but always reopen on slide 1 for a clean start
+    const wasIndex = showingIndexPage;
+    const wasIndexAt = currentIndex;
+    goTo(1);
+
+    const htmlSnapshot = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([htmlSnapshot], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+
+    const now = new Date();
+    const stamp = now.getFullYear().toString()
+      + String(now.getMonth()+1).padStart(2,'0')
+      + String(now.getDate()).padStart(2,'0') + '-'
+      + String(now.getHours()).padStart(2,'0')
+      + String(now.getMinutes()).padStart(2,'0');
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `hpe-networking-gtm-plan-updated-${stamp}.html`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    // restore the view the presenter was on
+    if(wasIndex){ openIndexPage(); } else { goTo(wasIndexAt); }
+
+    saveLink.classList.add('saved');
+    setTimeout(() => {
+      saveLink.classList.remove('saved');
+    }, 2000);
+  });
+</script>
+</body>
+</html>
